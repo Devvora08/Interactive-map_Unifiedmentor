@@ -4,8 +4,196 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="homepage.css">
 </head>
 <body>
-    <h1>hiii</h1>
+    
+<header>
+    <div class="logo">My-Map</div>
+    <nav>
+        <a href="#">Map</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+    <div class="carousel">
+        <div class="list">
+            <div class="item">
+                <img src="img1.png">
+                <div class="introduce">
+                    <div class="title">Global</div>
+                    <div class="topic">Explore the World Map !</div>
+                    <div class="des">
+                        A global map offers a complete view of the Earth's surface, enabling users to zoom, pan, and access detailed geographical and political information interactively.
+                    </div>
+                    <button class="seeMore">More &#8599</button>
+                </div>
+                <div class="detail">
+                    <div class="title">World Map</div>
+                    <div class="des">
+                        A global map provides an extensive view of the Earth, allowing users to zoom in and out, pan across continents, and interact with various layers. It displays detailed geographical 
+                        and political information, making it a comprehensive tool for navigation and exploration.
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="img2.png">
+                <div class="introduce">
+                    <div class="title">Location</div>
+                    <div class="topic">Search desired locations !</div>
+                    <div class="des">
+                        The Search feature on a map provides directions, route planning, and real-time updates, guiding users from one location to another efficiently and accurately.
+                    </div>
+                    <button class="seeMore">More &#8599</button>
+                </div>
+                <div class="detail">
+                    <div class="title">Search Tool</div>
+                    <div class="des">
+                        The Location helps in finding the desired places of choice, with accuracy and precision. The co-ordinates allow the map to precisely display the desired cities and districts.
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="img3.png">
+                <div class="introduce">
+                    <div class="title">Pins</div>
+                    <div class="topic">Add markers to your map !</div>
+                    <div class="des">
+                        Add pins on a map to mark and save specific locations, making it easier to identify, revisit, or share these points of interest.
+                    </div>
+                    <button class="seeMore">More &#8599</button>
+                </div>
+                <div class="detail">
+                    <div class="title">Pin-point</div>
+                    <div class="des">
+                       Adding pins combined with the search functionality can bring precision to mark your location. Look forward to additional content displayed on specific locations as well.
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="img4.png" style="border-radius: 50%; object-fit: cover;
+            border: 2px solid #ddd;aspect-ratio: 1 / 1;">
+                <div class="introduce">
+                    <div class="title">Precision</div>
+                    <div class="topic">Detailed maps and roads !</div>
+                    <div class="des">
+                        Look Forward to detailed maps and content throughout the map, including roads, societies and check-points.
+                    </div>
+                    <button class="seeMore">More &#8599</button>
+                </div>
+                <div class="detail">
+                    <div class="title">In-Depth Details</div>
+                    <div class="des">
+                        Map details include societal names, cities, districts, and roads, providing a comprehensive view of geographical and administrative boundaries. Users can explore neighborhoods and identify major roads offering valuable context for navigation and planning.
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <img src="img5.png" style="border-radius: 50%; object-fit: cover; 
+            border: 2px solid #ddd;aspect-ratio: 1 / 1;">
+                <div class="introduce">
+                    <div class="title">Borders</div>
+                    <div class="topic">Bounded and Bordered</div>
+                    <div class="des">
+                       Learn and understand the borders of the world map - including countries, states and cities.
+                    </div>
+                    <button class="seeMore">More &#8599</button>
+                </div>
+                <div class="detail">
+                    <div class="title">Water borders</div>
+                    <div class="des">
+                       The country water borders define a nation's coastline, separating its land area from adjacent seas and oceans. Adding a detailed functionality of displaying water boudaries to countries bring a better idea about the countries and their borders.
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+            <button id="back">Go back</button>
+        </div>
+    </div>
+ 
+    
+    <section id="aboutpage">
+        <div class="maptitle">my-Map</div>
+        <div class="aboutphotos">
+            <img src="aboutPhotos/pic1.png" alt="">
+            <img src="aboutPhotos/pic2.png" alt="">
+            <img src="aboutPhotos/pic3.png" alt="">
+            <img src="aboutPhotos/pic4.png" alt="">
+        </div>
+
+        <div class="aboutdetails">
+            <div class="detailone">
+                <div class="abouttopic">Boundary and Representation Features</div>
+                <div class="aboutdes">
+                    <div class="desone"><span class="destitle">Well Bordered:</span> All international, state, and city borders are well displayed.</div>
+                    <div class="destwo"><span class="destitle">Water Boundaries:</span>Countries with specific water boundaries are shown.</div>
+                    <div class="desthree"><span class="destitle">Multilingual:</span> Country and city names are displayed according to their respective languages, showcasing culture and language.</div>
+                </div>
+            </div>
+            <div class="detailtwo">
+                <div class="abouttopic">Marker and Customization Tools</div>
+                <div class="aboutdes">
+                    <div class="desone"><span class="destitle">Pins:</span> Multiple pins can be placed throughout the map based on choice, marking specific locations.</div>
+                    <div class="destwo"><span class="destitle">Shapes: </span>Mark small areas with appropriate shapes, useful for marking territories, streets, or specific locations.</div>
+                    <div class="desthree"><span class="destitle">Bookmarks: </span>Add custom bookmarks with additional information beyond pins and markers.</div>
+                </div>
+            </div>
+            <div class="detailthree">
+                <div class="abouttopic">Interactive, User Engagement Features</div>
+                <div class="aboutdes">
+                    <div class="desone"><span class="destitle">Geolocation:</span> Add your own location directly using the geolocation tool, and customize pins.</div>
+                    <div class="destwo"><span class="destitle">Zoom-In-Out:</span> Choose detailed map views with extensive zoom functionality for in-depth exploration.</div>
+                    <div class="desthree"><span class="destitle">Featured Places:</span> Discover featured places marked on the map and gain knowledge about these locations.</div>
+                </div>
+            </div>
+            <div class="detailfour">
+                <div class="abouttopic">Interactive, User-Friendly Features</div>
+                <div class="aboutdes">
+                    <div class="desone"><span class="destitle">Responsive Design:</span> Enjoy the map with all functionalities on any desired device, including mobiles, laptops, and tablets.</div>
+                    <div class="destwo"><span class="destitle">Keyboard Navigation:</span> Navigate the map using keyboard shortcuts for zooming and marking locations.</div>
+                    <div class="desthree"><span class="destitle">Search Functionality: </span> Quickly find locations, addresses, or points of interest with an integrated search bar</div>
+                </div>
+            </div>
+        </div>
+     </section>
+     <br>
+     <section id="contacts">
+        <div class="skullimg">
+            <img src="skull1.png" class="skulls leftskull" alt="">
+            <img src="skull2.png" class="skulls rightskull" alt="">
+        </div>
+        <div class="myinfo">
+            <div class="experience">
+                "Developing this map website has been an invaluable learning experience,
+                 enhancing my proficiency in responsive design, sophisticated CSS layouts, JavaScript interactivity, and advanced problem-solving skills."
+                
+            </div>
+            <div class="myimg">
+                <img src="admin.webp" alt="">
+                <div class="links">
+                    <a href=""><i class="fa-brands fa-twitter fa-2xl" style="color: #002e52;"></i></a>
+                    <a href=""><i class="fa-brands fa-linkedin fa-2xl" style="color: #003d3c;"></i></a>
+                    <a href=""><i class="fa-brands fa-github fa-2xl  " style="color: #003d3c;"></i></a>
+                </div>
+            </div>
+        </div>
+     </section>
+     <div class="finale">Thank you Unified Mentor for giving me the oppurtunity to challenge myself for this project</div>
+     
+
+
+
+    <script src="homepage.js"></script>
 </body>
 </html>
