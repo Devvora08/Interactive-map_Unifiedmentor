@@ -1,0 +1,304 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#map {
+    width: 100%;
+    height: 100vh;
+    aspect-ratio: 16 / 9;
+    position: absolute; /* Correct positioning context */
+}
+
+#map-container {
+    position: absolute; /* Ensure positioning context */
+    width: 100%;
+    height: 100vh; /* Full height for the container */
+}
+
+.leaflet-control-zoom {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 700px;
+    left: 1000px;
+}
+
+.sidebar{
+    position: absolute;
+    top: 17.5%;
+    left: 0;
+    height: 65vh;
+    width: 80px;
+    border-radius:0 12px 12px 0;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(146, 146, 146, 0.3),
+        rgba(255, 255, 255, 0.337)
+    );
+    padding: 0.4rem 0.8rem;
+    transition: all 0.85s ease;
+}
+.sidebar.active{
+    width: 250px;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(146, 146, 146, 0.3),
+        rgba(255, 255, 255, 0.337)
+    );
+}
+.sidebar #btn{
+    position: absolute;
+    top: 1.8rem;
+    left: 50%;
+    font-size: 1.2rem;
+    transform: translateX(-60%);
+    cursor: pointer;
+}
+.sidebar.active #btn{
+    left: 85%;
+}
+.sidebar .top .logo{
+    color: white;
+    display: flex;
+    height: 45px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+}
+.sidebar.active .top .logo{
+    opacity: 1;
+}
+.sidebar .top .logo i{
+    font-size: 25px;
+}
+.sidebar ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.sidebar ul li{
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 90%;
+    margin: 0.8rem auto;
+    line-height: 20px;
+}
+.sidebar ul li label{
+    color: white;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+.sidebar ul li label:hover{
+    background-color: white;
+    color:black
+}
+.sidebar ul li label i{
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 12px;
+}
+
+
+.sidebar ul li a{
+    color: white;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+    position: relative;
+    top: 45px;
+}
+.sidebar ul li a:hover{
+    background-color: white;
+    color:black
+}
+.sidebar ul li a i{
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 12px;
+    position: relative;
+    
+}
+.sidebar .nav-item{
+    opacity: 0;
+}
+.sidebar.active .nav-item{
+    opacity: 1;
+}
+
+.sidebar ul li .checker{
+    opacity: 0;
+   transition: opacity 0s ;
+}
+.sidebar.active ul li .checker{
+    
+    opacity: 1;
+    position: relative;
+    top: 38px;
+    left: 150px;
+    transition: opacity 1.5s ease;
+}
+
+input[type="checkbox"] {
+    appearance: none; 
+    width: 15px;
+    height: 15px;
+    border: 1px solid #254f55;
+    border-radius: 50%; 
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+input[type="checkbox"]:checked {
+    background-color: #004c70;
+    border-color: #ffffff;
+}
+
+
+
+
+
+
+/* for map layer bar */
+.satellite {
+    position: fixed;
+    top: 17.5%;
+    right: -120px; /* Initially hidden off the screen */
+    width: 205px;
+    height: 60vh;
+    background-color: #333; /* Customize the background */
+    padding: 20px;
+    
+    transition: all 0.3s ease; /* Smooth transition when opening/closing */
+    display: flex;
+
+
+    border-radius:12px 0 0 12px;
+    background-color: transparent;
+    
+   
+    
+}
+.satellite .top i {
+    position: relative;
+    left: 14px;
+    color: #000000; /* You can choose any bright color to contrast with the background */
+    background-color: rgba(195, 195, 195, 0.4); /* Add a background color to make the icon stand out */
+   
+    padding: 15px ;
+    border-radius:2px; /* Make it circular */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4); /* Give it some shadow for depth */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.satellite .top i:hover {
+    /* Highlight the background color on hover */
+    transform: scale(1.2); /* Slightly enlarge the icon on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* More shadow on hover */
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+}
+.map-option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+    background-size: cover; /* Ensures the image covers the entire label */
+    background-position: center; /* Centers the image within the label */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    height: 75px; /* Adjust based on the image size */
+    width: 75px; /* Adjust based on the layout needs */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50%; /* Optional: Rounded corners */
+    transition: all 0.3s ease; /* Optional: Smooth transition for hover effect */
+}
+
+.map-radio {
+    display: none;
+}
+
+.map-radio:checked + .map-option {
+    border: 5px solid #a8c5fb; /* Border to highlight selected item */
+    background-color: rgba(0, 0, 0, 0.3); /* Optional: Overlay color for selected item */
+}
+
+/* Open satellite (formerly sidebar) */
+.satellite.open{
+    right: 0; /* Move it to the left when open */
+    border-radius:12px 0 0 12px;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(146, 146, 146, 0.3),
+        rgba(255, 255, 255, 0.337)
+    );
+    opacity: 1;
+}
+.satellite.open #btntwo{
+    
+    left: 80px;
+    padding: 0;
+}
+
+/* Style for list items */
+.satellite ul {
+    list-style-type: none;
+    margin-top: 35px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+.satellite.open ul{
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+}
+
+.satellite ul li {
+    margin-left: -15px;
+    margin-top: 10px;
+    margin-right: 22px;
+    margin-bottom: 4px;
+    padding: 3px;
+}
+
+.satellite ul li .satellite-item{
+    display: flex;
+    position: relative;
+    left: 23px;
+    font-weight: bold;
+}
+.satellite ul li .customized{
+  
+    position: relative;
+    left: 14px;
+}
+
+.satellite label {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+
+.satellite label:hover {
+    border:2px solid #a8c5fb; /* Hover effect */
+}

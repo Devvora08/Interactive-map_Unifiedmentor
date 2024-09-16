@@ -1,0 +1,25 @@
+1.Categorized Pins with Pop-ups:
+
+Colored Pins: Use different colored pins (e.g., blue for capital cities, green for other locations) to categorize various places on the map.
+Pop-ups: Each pin will have a pop-up displaying information about the location.
+Slider for Filtering: A slider or similar UI element will allow users to filter between these categories.
+
+2.User-placed Markers:
+
+Add Markers: Users can click on the map to place their own markers.
+Custom Marker List: Each marker placed by the user will be added to a separate list that displays the locations they have marked.
+
+3.Navigation Routing:
+
+Route Calculation: Allow users to click on two points to get the shortest route between them.
+Route Display: Show the calculated route on the map, along with some basic information about the route.
+
+4.Map Style Switching:  done
+
+Different Styles: Provide options for users to switch between various map styles, such as dark mode, general map, street map, etc.
+Tile Layers: Use tile layers to switch between these styles.
+
+5.Current Location Display:
+
+User’s Location: Show the user's current location on the map using a marker.
+Centering: Optionally center the map on the user's current location.

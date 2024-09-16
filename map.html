@@ -1,11 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="map.css">
     <title>Map</title>
 </head>
+
 <body>
-    
+
+    <div id="map-container">
+        <div id="map">
+            <div class="sidebar leaflet-control">
+                <div class="top">
+                    <div class="logo">
+                        <i class="fa-solid fa-map " style="color: #a8c5fb;"></i>
+                    </div>
+                    <i class="fa-solid fa-bars fa-2xl" style="color: #e2f2ff;" id="btn"></i>
+                </div>
+                <ul>
+                    <li>
+                        <input type="checkbox" class="checker" id="eateries">
+                        <label for="eateries">
+                            <i class="fa-solid fa-pizza-slice fa-2xl"></i>
+                            <span class="nav-item">Eateries</span>
+                        </label>
+                    </li>
+
+                    <li>
+                        <input type="checkbox" class="checker" id="religious-places">
+                        <label for="religious-places">
+                            <i class="fa-solid fa-om fa-2xl"></i>
+                            <span class="nav-item">Religious Places</span>
+                        </label>
+                    </li>
+
+                    <li>
+                        <input type="checkbox" class="checker" id="tourist-places">
+                        <label for="tourist-places">
+                            <i class="fa-solid fa-plane-departure fa-2xl"></i>
+                            <span class="nav-item">Tourist Places</span>
+                        </label>
+                    </li>
+
+                    <li>
+                        <input type="checkbox" class="checker" id="monuments">
+                        <label for="monuments">
+                            <i class="fa-solid fa-monument fa-2xl"></i>
+                            <span class="nav-item">Monuments</span>
+                        </label>
+                    </li>
+
+                    <li>
+                        <a href="homepage.html">
+                            <i class="fa-solid fa-house fa-2xl"></i>
+                            <span class="nav-item">Home-page</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="satellite leaflet-control">
+                <div class="top">
+                    <i class="fa-solid fa-bars fa-2xl"  id="btntwo" ></i>
+                </div>
+                <ul>
+                    <li>
+                        <input type="radio" name="mapType" id="satelliteMap" class="map-radio" />
+                        <label for="satelliteMap" class="map-option" style="background-image: url('mapoverlayphotos/satelliteimg.jpg');">
+                    
+                        </label>
+                        <span class="satellite-item customized">Satellite</span>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="mapType" id="googleMap" class="map-radio" />
+                        <label for="googleMap" class="map-option" style="background-image: url('mapoverlayphotos/google.webp');">
+                            
+                        </label>
+                        <span class="satellite-item customized">Google</span>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="mapType" id="trafficMap" class="map-radio" />
+                        <label for="trafficMap" class="map-option" style="background-image: url('mapoverlayphotos/traffic.jpg');">
+                           
+                        </label>
+                        <span class="satellite-item customized">Traffic</span>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="mapType" id="darkMap" class="map-radio" />
+                        <label for="darkMap" class="map-option" style="background-image: url('mapoverlayphotos/dark.png');">
+                           
+                        </label>
+                        <span class="satellite-item">Dark</span>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="mapType" id="lightMap" class="map-radio" />
+                        <label for="lightMap" class="map-option" style="background-image: url('mapoverlayphotos/light.png');">
+                           
+                        </label>
+                        <span class="satellite-item">Light</span>
+                    </li>
+
+                    <li>
+                        <input type="radio" name="mapType" id="waterMap" class="map-radio" />
+                        <label for="waterMap" class="map-option" style="background-image: url('mapoverlayphotos/water.png');">
+                            
+                        </label>
+                        <span class="satellite-item">Water</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- scripts for leaflet and map files javascript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="map.js"></script>
 </body>
+
 </html>
