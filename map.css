@@ -19,10 +19,31 @@
 
 .leaflet-control-zoom {
     display: flex;
-    flex-direction: column;
-    position: relative;
-    top: 700px;
-    left: 1000px;
+    
+    
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    
+    border: 0;
+}
+.leaflet-control .leaflet-control-zoom-in,
+.leaflet-control .leaflet-control-zoom-out {
+    font-weight: bold;
+    background-color: transparent;
+    margin: 0px 0.2px;   
+    backdrop-filter: blur(40px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0.337)
+    );
+}
+
+
+.leaflet-control .leaflet-control-zoom-in:hover,
+.leaflet-control .leaflet-control-zoom-out:hover{
+    transform: scale(1.2);
+    background-color: rgba(121, 121, 121, 0.53);    
+    transition: all 0.4s ease;
 }
 
 .sidebar{
@@ -188,14 +209,11 @@ input[type="checkbox"]:checked {
 
     border-radius:12px 0 0 12px;
     background-color: transparent;
-    
-   
-    
 }
 .satellite .top i {
     position: relative;
     left: 14px;
-    color: #000000; /* You can choose any bright color to contrast with the background */
+    color: #ffffff; /* You can choose any bright color to contrast with the background */
     background-color: rgba(195, 195, 195, 0.4); /* Add a background color to make the icon stand out */
    
     padding: 15px ;
@@ -301,4 +319,336 @@ input[type="checkbox"]:checked {
 
 .satellite label:hover {
     border:2px solid #a8c5fb; /* Hover effect */
+}
+
+
+
+/* for the pin utility bar */
+
+.utility-bar {
+    position: fixed;
+    bottom: 0; /* Positioned at the bottom of the viewport */
+    left: calc(50% - 25%); /* Partially off-screen to show the icon */
+    width: 50%; /* Width of the sidebar */
+    bottom: -70px;
+    height: 16vh; /* Height of the sidebar */
+    background-color: transparent;
+   
+    padding: 20px;
+    border-radius: 12px 12px 0 0; /* Rounded corners on the top */
+   
+    display: flex;
+    flex-direction: row; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    transition: all 1s ease-in;
+    flex-wrap: wrap;
+    transition: all 0.35s ease-out;
+}
+#btnThree {
+    font-size: 25px;
+    color: white;
+    height: 50px; /* Increased height for better padding effect */
+    width: 50px; /* Increased width for better padding effect */
+    background-color: rgba(195, 195, 195, 0.35);
+    border: none; /* Remove default border */
+    border-radius: 12px; /* Make button round */
+    padding-top: 4px; /* Apply padding */
+    padding-bottom: 4px;
+    display: flex; /* Center content */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    position: relative; /* Custom placement */
+    bottom: 20px;
+    right: 0;
+    z-index: 1000; /* Ensure button is on top */
+    cursor: pointer; /* Change cursor on hover */
+    
+    text-align: center; /* Center text */
+    box-sizing: border-box; /* Include padding in width and height */
+    transition: background-color 0.3s ease-out
+}
+#btnThree:hover {
+    background-color: darkgrey; /* Change color on hover */
+    transform: scale(1.1); /* Enlarge button on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+
+.utility-bar.downopen{
+    bottom: 0;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(146, 146, 146, 0.3),
+        rgba(255, 255, 255, 0.337)
+    );
+    transition: all 0.35s ease-out;
+}
+.utility-bar.downopen #btnThree{
+    background-color: transparent;
+    transition: background-color 0.3s ease-out;
+}
+
+.utility-bar ul {
+    list-style: none;
+    padding: 0;
+    margin-top: -20px;
+    display: flex;
+    flex-wrap: wrap; /* Ensures wrapping */
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.utility-bar.downopen ul{
+    opacity: 1;
+    transition: opacity 1s ease-in;
+}
+
+.utility-bar li {
+    margin: 0 10px; /* Space between items */
+    width: auto; /* Let the items size themselves */
+}
+
+.utility-bar .pin-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin: 5px 20px; /* Adjusted spacing */
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    height: 60px; /* Adjust based on the image size */
+    width: 60px;
+    border-radius: 50%;
+    transition: all 0.3s ease-in;
+}  
+
+.pin-radio{
+    display: none;
+}
+
+.pin-radio:checked + .pin-option {
+    height: 60px;
+    width: 60px;
+    background-size: cover;
+    border-radius: 50%;
+    transition: all 0.3s ease-in;
+    border: 2px solid black;
+    background-color: #7b7b7b6a;
+}
+
+#popupTitle,#popupContent{
+    color: rgb(0, 0, 0);
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 12px;
+    padding: 4px 8px;
+    background-color: rgba(109, 109, 109, 0.5);
+}
+#popupTitle{
+    width: 45%;
+}
+.popSubmit{
+    height: 24px;
+    width: 70px;
+    font-size: 14px;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 12px;
+    background-color: transparent;
+    position: relative;
+    left: 2.5px;
+}
+.popSubmit:hover{
+    transform: scale(1.2);
+    background-color: #dedede;
+    transition: all 0.1s ease-out;
+
+}
+.popLabel{
+    background-color: transparent;
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: bold;
+}
+#popupForm{
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+}
+.leaflet-popup-content-wrapper {
+    background-color: transparent;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(68, 68, 68, 0.6),
+        rgba(255, 255, 255, 0.737)
+    );
+    border-radius: 10px; /* Add rounded corners */
+    padding: 15px; /* Add padding */
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1); /* Add shadow */
+}
+
+
+
+
+
+/* Styling the routing box and button */
+
+#routing-container {
+    position: relative; /* Ensure the container is positioned relative for absolute positioning of child elements */
+}
+
+/* Route box styles */
+.leaflet-routing-container {
+    position: relative; /* This will keep the route box in its place */
+    top: 100px; /* Adjust this to fine-tune the position */
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(68, 68, 68, 0.6),
+        rgba(255, 255, 255, 0.737)
+    );
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset button styles */
+#resetRouteBtn {
+    position: absolute; /* Position the button absolutely within the container */
+    top: 50px; /* Position the button below the route container */
+    right: 100px; /* Align the button to the right of the container */
+    padding: 4px 8px;
+    margin-top: 10px;
+    font-size: 16px;
+
+    font-weight: bold;
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(205, 205, 205, 0.6),
+        rgba(255, 255, 255, 0.737)
+    );
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    display: none; /* Initially hidden */
+    z-index: 1000; /* Ensure it is above other elements */
+}
+/* Hover effect for the reset button */
+#resetRouteBtn:hover {
+    transform: scale(1.15);
+    transition: all 0.2s ease-out;
+}
+
+
+
+
+/* styling the search bar */
+
+.leaflet-control-geocoder {
+    background-color: transparent;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(205, 205, 205, 0.6),
+        rgba(255, 255, 255, 0.737)
+    );
+    border-radius: 10px;
+    position: relative;
+    right: 10px;
+    top: 10px;
+    font-weight: bolder;
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease, background-color 0.4s ease;
+    width: 35px; /* Initial width */
+    height: 34px; /* Initial height */
+    opacity: 1; /* Ensure visibility when not expanded */
+}
+
+/* Expanded state of the geocoder control */
+.leaflet-control-geocoder-expanded {
+    width: 300px; /* Expanded width */
+    height: 35px; /* Ensure height matches or adjust as needed */
+    opacity: 1; /* Full visibility */
+    transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease, background-color 0.4s ease; /* Consistent transition properties */
+}
+
+/* Input field styling for expanded state */
+.leaflet-control-geocoder-input {
+    width: 0; /* Collapsed width */
+    opacity: 0; /* Collapsed opacity */
+    transition: width 0.4s ease, opacity 0.4s ease; /* Smooth transition for width and opacity */
+}
+
+.leaflet-control-geocoder-expanded .leaflet-control-geocoder-input {
+    width: 100%; /* Expanded width for input field */
+    opacity: 1;
+    background-color: grey;
+}
+.leaflet-control-geocoder-icon{
+    
+    background-color: transparent;
+    backdrop-filter: blur(2px);
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    
+}
+.leaflet-control-geocoder:not(.leaflet-control-geocoder-expanded)  {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.leaflet-control-geocoder:not(.leaflet-control-geocoder-expanded):hover{
+    transform: scale(1.2); 
+}
+
+.leaflet-control-geocoder-alternatives ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: grey;
+}
+.leaflet-control-geocoder-alternatives li{
+    background-color: transparent;
+    backdrop-filter: blur(2px);
+    background-image: linear-gradient(
+        150deg,
+        rgba(205, 205, 205, 0.6),
+        rgba(255, 255, 255, 0.737)
+    );
+    display: flex;
+    text-align: center;
+   
+}
+
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .utility-bar {
+        height: auto; /* Adjust height to fit content */
+        padding: 15px;
+    }
+
+    .utility-bar .pin-option {
+        height: 50px; /* Smaller size for smaller screens */
+        width: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .utility-bar .pin-option {
+        height: 40px; /* Further scaling for small screens */
+        width: 40px;
+    }
 }

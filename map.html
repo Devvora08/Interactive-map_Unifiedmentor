@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.81.1/dist/L.Control.Locate.min.css" />
     <link rel="stylesheet" href="map.css">
     <title>Map</title>
 </head>
@@ -68,57 +71,125 @@
 
             <div class="satellite leaflet-control">
                 <div class="top">
-                    <i class="fa-solid fa-bars fa-2xl"  id="btntwo" ></i>
+                    <i class="fa-solid fa-bars fa-2xl" id="btntwo"></i>
                 </div>
                 <ul>
                     <li>
                         <input type="radio" name="mapType" id="satelliteMap" class="map-radio" />
-                        <label for="satelliteMap" class="map-option" style="background-image: url('mapoverlayphotos/satelliteimg.jpg');">
-                    
+                        <label for="satelliteMap" class="map-option"
+                            style="background-image: url('mapoverlayphotos/satelliteimg.jpg');">
+
                         </label>
                         <span class="satellite-item customized">Satellite</span>
                     </li>
 
                     <li>
                         <input type="radio" name="mapType" id="googleMap" class="map-radio" />
-                        <label for="googleMap" class="map-option" style="background-image: url('mapoverlayphotos/google.webp');">
-                            
+                        <label for="googleMap" class="map-option"
+                            style="background-image: url('mapoverlayphotos/google.webp');">
+
                         </label>
                         <span class="satellite-item customized">Google</span>
                     </li>
 
                     <li>
                         <input type="radio" name="mapType" id="trafficMap" class="map-radio" />
-                        <label for="trafficMap" class="map-option" style="background-image: url('mapoverlayphotos/traffic.jpg');">
-                           
+                        <label for="trafficMap" class="map-option"
+                            style="background-image: url('mapoverlayphotos/traffic.jpg');">
+
                         </label>
                         <span class="satellite-item customized">Traffic</span>
                     </li>
 
                     <li>
                         <input type="radio" name="mapType" id="darkMap" class="map-radio" />
-                        <label for="darkMap" class="map-option" style="background-image: url('mapoverlayphotos/dark.png');">
-                           
+                        <label for="darkMap" class="map-option"
+                            style="background-image: url('mapoverlayphotos/dark.png');">
+
                         </label>
                         <span class="satellite-item">Dark</span>
                     </li>
 
                     <li>
                         <input type="radio" name="mapType" id="lightMap" class="map-radio" />
-                        <label for="lightMap" class="map-option" style="background-image: url('mapoverlayphotos/light.png');">
-                           
+                        <label for="lightMap" class="map-option"
+                            style="background-image: url('mapoverlayphotos/light.png');">
+
                         </label>
                         <span class="satellite-item">Light</span>
                     </li>
 
                     <li>
                         <input type="radio" name="mapType" id="waterMap" class="map-radio" />
-                        <label for="waterMap" class="map-option" style="background-image: url('mapoverlayphotos/water.png');">
-                            
+                        <label for="waterMap" class="map-option"
+                            style="background-image: url('mapoverlayphotos/water.png');">
+
                         </label>
                         <span class="satellite-item">Water</span>
                     </li>
                 </ul>
+            </div>
+
+            <div class="utility-bar leaflet-control">
+                <div class="top">
+                    <i class="fa-solid fa-bars fa-2xl" id="btnThree"></i>
+                </div>
+                <ul>
+                    <li>
+                        <input type="radio" name="pinType" id="pinOne" class="pin-radio" />
+                        <label for="pinOne" class="pin-option" style="background-image: url('customPins/pin1.png');">
+
+                        </label>
+
+                    </li>
+
+                    <li>
+                        <input type="radio" name="pinType" id="pinTwo" class="pin-radio" />
+                        <label for="pinTwo" class="pin-option" style="background-image: url('customPins/pin2.png');">
+
+                        </label>
+
+                    </li>
+
+                    <li>
+                        <input type="radio" name="pinType" id="pinThree" class="pin-radio" />
+                        <label for="pinThree" class="pin-option" style="background-image: url('customPins/pin3.png');">
+
+                        </label>
+
+                    </li>
+
+                    <li>
+                        <input type="radio" name="pinType" id="pinFour" class="pin-radio" />
+                        <label for="pinFour" class="pin-option" style="background-image: url('customPins/pin4.png');">
+
+                        </label>
+
+                    </li>
+
+                    <li>
+                        <input type="radio" name="pinType" id="pinFive" class="pin-radio" />
+                        <label for="pinFive" class="pin-option" style="background-image: url('customPins/pin5.png');">
+
+                        </label>
+
+                    </li>
+
+                    <li>
+                        <input type="radio" name="pinType" id="distancePin" class="pin-radio" />
+                        <label for="distancePin" class="pin-option"
+                            style="background-image: url('customPins/homepin.png');">
+
+                        </label>
+
+                    </li>
+
+
+                </ul>
+            </div>
+
+            <div id="routing-container leaflet-control">
+                <button id="resetRouteBtn">Reset Route</button>
             </div>
         </div>
     </div>
@@ -129,6 +200,18 @@
     <!-- scripts for leaflet and map files javascript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
         integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@v0.81.1/dist/L.Control.Locate.min.js" charset="utf-8"></script>
+
+
+    <!-- scripts for geojson files here -->
+    <script src="geoJsonFiles/eateries.js"></script>
+    <script src="geoJsonFiles/monument.js"></script>
+    <script src="geoJsonFiles/religious.js"></script>
+    <script src="geoJsonFiles/tourist.js"></script>
+
+
     <script src="map.js"></script>
 </body>
 

@@ -136,14 +136,14 @@ var overlayMaps = {
 //     icon
 // }).bindPopup('this is popup').addTo(map);        //give an object referencing the icon created above
 
-const eateries = document.querySelector('#eateries');
-eateries.addEventListener('change', (e)=>{
-    if (e.target.checked) {
-        map.addLayer(cities);  // Adds the eateries overlay to the map
-    } else {
-        map.removeLayer(cities);  // Removes the eateries overlay from the map
-    }
-})
+// const eateries = document.querySelector('#eateries');
+// eateries.addEventListener('change', (e)=>{
+//     if (e.target.checked) {
+//         map.addLayer(cities);  // Adds the eateries overlay to the map
+//     } else {
+//         map.removeLayer(cities);  // Removes the eateries overlay from the map
+//     }
+// })
 
 
 //maplayer sidebar logic here
@@ -160,6 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const radiobtn = document.querySelectorAll('.map-radio');
+
 radiobtn.forEach(choice => {
     choice.addEventListener('change', e => {
         if(e.target.checked){
@@ -206,5 +207,294 @@ function switchLayer(mapType) {
             break;
     }
 }
+
+//utility bar slider logic here
+
+const utilityBar = document.querySelector('.utility-bar'); 
+const downBtn = document.getElementById('btnThree');
+
+downBtn.addEventListener('click', ()=>{
+    utilityBar.classList.toggle('downopen');
+})
+
+const pinBtn = document.querySelectorAll('.pin-radio');
+let selectedIcon = null;
+let releted = null;
+
+pinBtn.forEach(pin => {
+    pin.addEventListener('change',e => {
+        const selectedLabel = document.querySelector(`label[for="${e.target.id}"]`);
+        const bgImage = window.getComputedStyle(selectedLabel).getPropertyValue('background-image');
+        const imageUrl = bgImage.slice(5, -2); 
+        const relativePath = imageUrl.replace(window.location.origin, '');
+
+        const relativeUrl = relativePath.startsWith('/') ? relativePath.substring(1) : relativePath;
+        related = relativeUrl;
+         selectedIcon = L.icon({
+            iconUrl: relativeUrl,
+            iconSize: [70, 70], 
+            iconAnchor: [35, 50], 
+        });
+        
+        
+    })
+})
+
+const popupForm = `
+    <form id="popupForm">
+        <label class="popLabel" for="popupTitle">Title:</label>
+        <input type="text" id="popupTitle" name="popupTitle"><br>
+        <label class="popLabel" for="popupContent">Content:</label>
+        <textarea id="popupContent" name="popupContent" required></textarea><br>
+        <button class="popSubmit" type="submit">Submit</button>
+    </form>
+`;
+
+
+let count = 0; //initializing the count for short route, if reaches 2, implement short route function
+let routeArray = [];
+let resetBtn = document.querySelector('#resetRouteBtn');
+let routingControl = null;
+let markers = [];  //for the route pins, they need to be stored here so they can be deleted when reset from the map
+
+
+console.log(resetBtn)
+map.on('click', function(e) {
+
+    if (selectedIcon && related!='customPins/homepin.png') {
+        console.log(e.latlng.lat, e.latlng.lng);
+        
+        
+
+        let newMarker = L.marker([e.latlng.lat, e.latlng.lng], { icon: selectedIcon })
+        .bindPopup(popupForm, {
+            offset: L.point(2, -16) // Adjust the popup offset
+        })
+        .addTo(map);
+
+        newMarker.on('popupopen', function() {
+            const popupForm = document.querySelector('#popupForm');
+            popupForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent default form behavior
+
+                const popupTitle = document.querySelector('#popupTitle').value;
+                const popupContent = document.querySelector('#popupContent').value;
+
+                // Set the content of the popup with title, content, and coordinates
+                newMarker.setPopupContent(`
+                    <b>${popupTitle}</b><br>${popupContent}<br>
+                    Coordinates: ${e.latlng.lat.toFixed(5)}, ${e.latlng.lng.toFixed(5)}
+                `).openPopup();
+            });
+        });
+    }
+    else if (selectedIcon && related == 'customPins/homepin.png' && count < 2) {
+        let newMarker = L.marker([e.latlng.lat, e.latlng.lng], { icon: selectedIcon }).addTo(map);
+        markers.push(newMarker);
+        console.log('Adding coordinates:', e.latlng.lat, e.latlng.lng);
+        routeArray.push([e.latlng.lat, e.latlng.lng]);
+        count += 1;
+
+        if (count == 2) {
+            resetBtn.style.display = 'block'; // Show the reset button
+            pinBtn.forEach(pin=> {
+                pin.checked = false;     //unchecking every pin after reset
+            }); 
+            // Remove existing routing control if present
+            if (routingControl) {
+                map.removeControl(routingControl);
+            }
+
+            // Add new routing control
+            routingControl = L.Routing.control({
+                waypoints: [
+                    L.latLng(routeArray[0][0], routeArray[0][1]),
+                    L.latLng(routeArray[1][0], routeArray[1][1])
+                ],
+                createMarker: function() {
+                    return null; // Prevent default markers from being added
+                }
+            }).addTo(map);
+        }
+    } else {
+        console.log('No icon selected or too many pins');
+    }
+});
+
+// Reset Route function
+const resetRoute = () => {
+    if (routingControl) {
+        map.removeControl(routingControl); // Remove the route layer
+        routingControl = null; // Clear reference to routing control
+    }
+
+    // Reset count and array
+    count = 0;
+    routeArray = [];
+    markers.forEach(marker => {
+        map.removeLayer(marker);
+    });
+    markers = [];
+
+    // Hide the reset button
+    resetBtn.style.display = 'none';  
+    selectedIcon = null;
+}
+
+// Add event listener to the reset button
+resetBtn.addEventListener('click', resetRoute);
+
+
+//testing the search functionality
+L.Control.geocoder().addTo(map);
+
+
+const locateControl = L.control.locate({
+    position: 'topleft',
+    drawCircle: true, // Disable the circle around the location
+    follow: true,      // Automatically follow the user location
+    setView: false,
+    
+}).addTo(map);
+
+// Handle the 'locationfound' event
+map.on('locationfound', function(e) {
+    // Use flyTo to move smoothly to the user's location
+    map.flyTo(e.latlng, 12, {
+        duration: 2, // Duration of the animation in seconds
+        animate: true  // Ensure the animation is applied
+    });
+});
+
+// Handle the 'locationerror' event
+map.on('locationerror', function(e) {
+    alert('Unable to locate you. Please check your location settings.');
+});
+
+// Add custom click event to locate control button
+document.querySelector('.leaflet-control-locate').addEventListener('click', function() {
+    map.locate({ setView: false, maxZoom: 16 });
+});
+
+
+//adding geojson files
+let eatLayer;  
+let monumentLayer;
+let religiousLayer;
+let touristLayer;
+
+
+//custom icons for each layers
+const eatIcon = L.icon({
+    iconUrl: './geoJsonFiles/iconPhotos/eating.png',  // Path to your custom icon
+    iconSize: [32, 32],                // Size of the icon [width, height]
+    iconAnchor: [16, 32],              // Anchor point of the icon (so the point sits correctly on the map)
+    popupAnchor: [0, -32]              // Position of the popup relative to the icon
+});
+const monumentIcon = L.icon({
+    iconUrl: './geoJsonFiles/iconPhotos/monument.png',  // Path to your custom icon
+    iconSize: [32, 32],                // Size of the icon [width, height]
+    iconAnchor: [16, 32],              // Anchor point of the icon (so the point sits correctly on the map)
+    popupAnchor: [0, -32]              // Position of the popup relative to the icon
+});
+const religiosIcon = L.icon({
+    iconUrl: './geoJsonFiles/iconPhotos/religious.png',  // Path to your custom icon
+    iconSize: [32, 32],                // Size of the icon [width, height]
+    iconAnchor: [16, 32],              // Anchor point of the icon (so the point sits correctly on the map)
+    popupAnchor: [0, -32]              // Position of the popup relative to the icon
+});
+const touristIcon = L.icon({
+    iconUrl: './geoJsonFiles/iconPhotos/tourism.png',  // Path to your custom icon
+    iconSize: [32, 32],                // Size of the icon [width, height]
+    iconAnchor: [16, 32],              // Anchor point of the icon (so the point sits correctly on the map)
+    popupAnchor: [0, -32]              // Position of the popup relative to the icon
+});
+//impelmenting selection logic for geojson file for each id
+
+const eateries = document.querySelector('#eateries');
+eateries.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        eatLayer = L.geoJSON(eat, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: eatIcon});
+            },
+            style: function (feature) {
+                return {color: feature.properties.color};  // Apply styles for non-point features
+            }
+        }).bindPopup(function (layer) {
+            return layer.feature.properties.description;
+        }).addTo(map);
+    } else {
+        // Remove the GeoJSON layer from the map if it's unchecked
+        if (eatLayer) {
+            map.removeLayer(eatLayer);
+        }
+    }
+});
+
+const monuments = document.querySelector('#monuments');
+monuments.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        monumentLayer = L.geoJSON(monument, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: monumentIcon});
+            },
+            style: function (feature) {
+                return {color: feature.properties.color};  // Apply styles for non-point features
+            }
+        }).bindPopup(function (layer) {
+            return layer.feature.properties.description;
+        }).addTo(map);
+    } else {
+        // Remove the GeoJSON layer from the map if it's unchecked
+        if (monumentLayer) {
+            map.removeLayer(monumentLayer);
+        }
+    }
+});
+
+const religiousPlaces = document.querySelector('#religious-places');
+religiousPlaces.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        religiousLayer = L.geoJSON(religios, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: religiosIcon});
+            },
+            style: function (feature) {
+                return {color: feature.properties.color}; 
+            }
+        }).bindPopup(function (layer) {
+            return layer.feature.properties.description;
+        }).addTo(map);
+    } else {
+        // Remove the GeoJSON layer from the map if it's unchecked
+        if (religiousLayer) {
+            map.removeLayer(religiousLayer);
+        }
+    }
+});
+
+
+const tourists = document.querySelector('#tourist-places');
+tourists.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        touristLayer = L.geoJSON(tourist, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: touristIcon});
+            },
+            style: function (feature) {
+                return {color: feature.properties.color};  // Apply styles for non-point features
+            }
+        }).bindPopup(function (layer) {
+            return layer.feature.properties.description;
+        }).addTo(map);
+    } else {
+        // Remove the GeoJSON layer from the map if it's unchecked
+        if (touristLayer) {
+            map.removeLayer(touristLayer);
+        }
+    }
+});
+
 
 
