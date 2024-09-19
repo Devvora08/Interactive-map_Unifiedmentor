@@ -358,9 +358,9 @@ input[type="checkbox"]:checked {
     display: flex; /* Center content */
     align-items: center; /* Center content vertically */
     justify-content: center; /* Center content horizontally */
-    position: relative; /* Custom placement */
+    position: fixed; /* Custom placement */
     bottom: 20px;
-    right: 0;
+    right: 50%;
     z-index: 1000; /* Ensure button is on top */
     cursor: pointer; /* Change cursor on hover */
     
@@ -386,17 +386,21 @@ input[type="checkbox"]:checked {
     );
     transition: all 0.35s ease-out;
 }
-.utility-bar.downopen #btnThree{
+.utility-bar.downopen #btnThree {
     background-color: transparent;
     transition: background-color 0.3s ease-out;
+    position: fixed;
+    bottom: 30%; /* Lower the button closer to the bottom */
+    right: 10px; /* Optional: Move to the right if needed */
+    z-index: 1000; /* Ensure it appears on top */
 }
 
 .utility-bar ul {
     list-style: none;
     padding: 0;
-    margin-top: -20px;
+    margin-top: 0px;
     display: flex;
-    flex-wrap: wrap; /* Ensures wrapping */
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     width: 100%;
@@ -409,24 +413,23 @@ input[type="checkbox"]:checked {
 }
 
 .utility-bar li {
-    margin: 0 10px; /* Space between items */
-    width: auto; /* Let the items size themselves */
+    margin: 0 5px; /* Reduced margin for better fit */
+    width: auto; 
 }
-
 .utility-bar .pin-option {
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 4px;
-    margin: 5px 20px; /* Adjusted spacing */
+    margin: 0 15px; /* Adjust the spacing between icons */
     cursor: pointer;
     background-size: cover;
     background-position: center;
-    height: 60px; /* Adjust based on the image size */
-    width: 60px;
+    height: 50px; /* Slightly smaller size for mobile */
+    width: 50px;
     border-radius: 50%;
     transition: all 0.3s ease-in;
-}  
+} 
 
 .pin-radio{
     display: none;
@@ -631,24 +634,22 @@ input[type="checkbox"]:checked {
 
 
 
-
-
-
-@media (max-width: 768px) {
-    .utility-bar {
-        height: auto; /* Adjust height to fit content */
-        padding: 15px;
+@media only screen and (max-width: 768px) {
+    .utility-bar ul {
+        flex-direction: row;
+        justify-content: space-around;
     }
 
     .utility-bar .pin-option {
-        height: 50px; /* Smaller size for smaller screens */
-        width: 50px;
+        height: 40px; 
+        width: 40px;
+        margin: 0 10px;
     }
 }
 
 @media (max-width: 480px) {
     .utility-bar .pin-option {
-        height: 40px; /* Further scaling for small screens */
+        height: 40px; 
         width: 40px;
     }
 }

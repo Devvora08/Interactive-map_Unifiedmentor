@@ -41,3 +41,23 @@ seeMoreButtons.forEach((button) => {
 backButton.onclick = function(){
     carousel.classList.remove('showDetail');
 }
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const myInfoSection = document.querySelector('.myinfo');
+    if (!myInfoSection) {
+        console.log("myinfo section not found"); // Debugging
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                console.log("myinfo is in view!"); // Debugging
+                myInfoSection.classList.add('animate'); // Trigger the animation
+            }
+        });
+    }, { threshold: 0.2 }); // Trigger when 20% of the section is visible
+
+    observer.observe(myInfoSection); // Observe the element
+});

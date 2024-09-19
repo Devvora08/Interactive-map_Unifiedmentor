@@ -3,9 +3,17 @@
 let btn = document.querySelector('#btn');
 let sidebar = document.querySelector('.sidebar');
 
-btn.onclick = function () {
+btn.addEventListener('click',()=> {
     sidebar.classList.toggle('active');
-}
+    if(sidebar.classList.contains("active")){
+        utilityBar.style.opacity = 0;
+        rightSidebar.style.opacity = 0;
+    }
+    else{
+        utilityBar.style.opacity = 1;
+        rightSidebar.style.opacity = 1;
+    }
+});
 
 
     
@@ -148,16 +156,24 @@ var overlayMaps = {
 
 //maplayer sidebar logic here
 
-document.addEventListener('DOMContentLoaded', function() {
-    // New variable for the right sidebar
-    const rightSidebar = document.querySelector('.satellite'); // Assuming there's only one sidebar with the class 'satellite'
-    const rightBtn = document.getElementById('btntwo'); // Button to toggle the right sidebar
 
-    // Add event listener to toggle the right sidebar
-    rightBtn.addEventListener('click', function() {
-        rightSidebar.classList.toggle('open'); // Toggle the "open" class for right sidebar
+    // New variable for the right sidebar
+const rightSidebar = document.querySelector('.satellite'); // Assuming there's only one sidebar with the class 'satellite'
+const rightBtn = document.getElementById('btntwo'); // Button to toggle the right sidebar
+
+// Add event listener to toggle the right sidebar
+rightBtn.addEventListener('click', function() {
+        rightSidebar.classList.toggle('open'); 
+        if(rightSidebar.classList.contains('open')){
+            sidebar.style.opacity = 0;
+            utilityBar.style.opacity = 0;
+        }
+        else{
+            sidebar.style.opacity = 1;
+            utilityBar.style.opacity = 1;
+        }
     });
-});
+
 
 const radiobtn = document.querySelectorAll('.map-radio');
 
@@ -215,6 +231,14 @@ const downBtn = document.getElementById('btnThree');
 
 downBtn.addEventListener('click', ()=>{
     utilityBar.classList.toggle('downopen');
+    if(utilityBar.classList.contains('downopen')){
+        sidebar.style.opacity = 0;
+        rightSidebar.style.opacity = 0;
+    }
+    else{
+        sidebar.style.opacity = 1;
+        rightSidebar.style.opacity = 1;
+    }
 })
 
 const pinBtn = document.querySelectorAll('.pin-radio');
@@ -495,6 +519,4 @@ tourists.addEventListener('change', (e) => {
         }
     }
 });
-
-
 

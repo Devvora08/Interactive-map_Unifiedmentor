@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
+html {
+    scroll-behavior: smooth;
+}
 body {
     margin: 0;
     background-color: #F4F4F4;
@@ -49,21 +51,24 @@ header {
 }
 
 header .logo {
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 45px;
+    margin-top: 20px;
 }
-
 header nav a {
     margin-left: 30px;
     text-decoration: none;
     color: #555;
     font-weight: 500;
     z-index: 50;
+    display: inline-block; /* Ensure it's treated as an inline block for hover/transform */
+    transition: transform 0.3s ease-in; /* Apply transition on the default state */
 }
 
 header nav a:hover {
-    color: blue;
+    transform: scale(1.2); /* Scale on hover */
+    color: #000000;
 }
-
 /* carousel */
 .carousel {
     position: relative;
@@ -509,6 +514,8 @@ header nav a:hover {
     text-align: center;
     margin: 25px;
     margin-bottom: 15px;
+    animation: infoBlurAnimate both;
+    animation-timeline: view(70% 15%);
 }
 
 .aboutphotos {
@@ -520,6 +527,16 @@ header nav a:hover {
     z-index: 1;
     margin-top: 30px;
     margin-bottom: 50px;
+    animation: infoBlurAnimate both;
+    animation-timeline: view(80% 5%);
+}
+@keyframes infoBlurAnimate{
+    from{
+        filter: blur(30px);
+    }
+    to{
+        filter: blur(0);
+    }
 }
 
 .aboutphotos img {
@@ -553,7 +570,7 @@ header nav a:hover {
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
-    box-shadow: 3px;
+  
     width: 22%;
     height: 350px;
     background-color: rgba(78, 78, 78, 0.2);
@@ -568,12 +585,25 @@ header nav a:hover {
     border: 1px solid rgba(208, 240, 0, 0.327);
     border-radius: 12px;
 
-
+    animation: boxAnimate both;
+    animation-timeline: view(70% 15%);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
-
-
 }
+@keyframes boxAnimate{
+    from{
+        background-color: transparent;
+        backdrop-filter: blur(0px);
+        border:none;
+        box-shadow: 0px;
+    }
+    to{
+        background-color: rgba(78, 78, 78, 0.2);
+        backdrop-filter: blur(30px);
+        border: 1px solid rgba(208, 240, 0, 0.327);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+}
+
 
 .aboutdes {
     display: flex;
@@ -607,6 +637,8 @@ header nav a:hover {
     text-transform: uppercase;
     /* Optional for boldness */
     letter-spacing: 1px;
+    animation: infoBlurAnimate both;
+    animation-timeline: view(70% 15%);
 }
 
 .destitle {
@@ -671,16 +703,7 @@ header nav a:hover {
     object-fit: cover;
     box-sizing: border-box;  
 }
-.myinfo{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    z-index: 1;
-    margin: auto;
-    text-align: center;
-    position: relative;
-    top: 100px;
-}
+
 .myimg{
     display: flex;
     flex-direction: column;
@@ -700,6 +723,9 @@ header nav a:hover {
     margin-left: 2px;
     margin-right: 2px;
 }
+.links a{
+    text-decoration: none;
+}
 .experience{
     width: 350px;
     height: 200px;
@@ -712,10 +738,65 @@ header nav a:hover {
     align-items: center;
     justify-content: center;
     position: relative;
-    
     top: 275px;
+    
+}
+.myinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 1;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    top: 100px;
+    opacity: 0; /* Start with invisible */
+    transform: translateY(200px) scale(0.3); /* Initial position and scale */
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+.myinfo.animate {
+    opacity: 1; /* Become visible */
+    transform: translateY(0) scale(1); /* Move to final position */
 }
 
+.leftskull{
+    animation: leftRotate both;
+    animation-timeline: view(30% 20%);
+}
+
+.rightskull{
+    animation: rightRotate;
+    animation-timeline: view(40% 20%);
+}
+
+
+@keyframes rightRotate{
+    from{
+        transform: rotate(-95deg);
+    }
+    to{
+        transform: rotate(16deg);
+    }
+}
+
+@keyframes leftRotate{
+    from{
+        transform: rotate(95deg);
+    }
+    to{
+        transform: rotate(-16deg);
+    }
+}
+@keyframes infoBlur {
+    from {
+        opacity: 0;
+        transform: translateY(200px) scale(0.3);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
 /* media query for responsiveness of the carousal  */
 
 @media (max-width: 1024px) {
@@ -765,6 +846,9 @@ header nav a:hover {
 @media screen and (max-width: 991px) {
 
     /* ipad, tablets */
+    .skullimg{
+        display: none;
+    }
     .carousel .list .item {
         width: 90%;
     }
@@ -803,6 +887,10 @@ header nav a:hover {
 @media screen and (max-width: 767px) {
 
     /* mobile */
+
+    .skullimg{
+        display: none;
+    }
     .carousel {
         height: 600px;
     }
@@ -841,3 +929,5 @@ header nav a:hover {
         float: right;
     }
 }
+
+
