@@ -631,13 +631,20 @@ input[type="checkbox"]:checked {
 }
 
 
-
+@media only screen and (max-width: 1450px){
+    .sidebar{
+        height: 40%;
+    }
+}
 
 
 @media only screen and (max-width: 768px) {
     .utility-bar ul {
         flex-direction: row;
         justify-content: space-around;
+    }
+    .sidebar{
+        height: 65%;
     }
 
     .utility-bar .pin-option {
